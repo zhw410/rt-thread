@@ -5,7 +5,7 @@
  *
  * Change Logs:
  * Date           Author       Notes
- * 2018-11-10      SummerGift   change to new framework
+ * 2018-11-10     SummerGift   first version
  */
 
 #ifndef __DRV_DMA_H_
@@ -16,9 +16,13 @@
 #include <rthw.h>
 #include <drv_common.h>
 
-#if defined(SOC_SERIES_STM32F1) || defined(SOC_SERIES_STM32L4)
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#if defined(SOC_SERIES_STM32F0) || defined(SOC_SERIES_STM32F1) || defined(SOC_SERIES_STM32L4)
 #define DMA_INSTANCE_TYPE              DMA_Channel_TypeDef
-#elif defined(SOC_SERIES_STM32F4)
+#elif defined(SOC_SERIES_STM32F4) || defined(SOC_SERIES_STM32F7)
 #define DMA_INSTANCE_TYPE              DMA_Stream_TypeDef
 #endif /*  defined(SOC_SERIES_STM32F1) || defined(SOC_SERIES_STM32L4) */
 
@@ -27,7 +31,7 @@ struct dma_config {
     rt_uint32_t dma_rcc;
     IRQn_Type dma_irq;
 
-#if defined(SOC_SERIES_STM32F4)
+#if defined(SOC_SERIES_STM32F4) || defined(SOC_SERIES_STM32F7)
     rt_uint32_t channel;
 #endif
 
@@ -36,5 +40,8 @@ struct dma_config {
 #endif
 };
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif /*__DRV_DMA_H_ */
